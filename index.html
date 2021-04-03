@@ -12,26 +12,19 @@
     <section class="worldClock"> 
         <div class="worldClock__title">WORLD CLOCK</div>
         <main class="worldClock__zone">
-            <div class="zoneItem">
+            <!-- <div class="zoneItem">
                 <div>
                     <div class="zoneItem__place">NEW YORK</div>
                     <div class="zoneItem__date">27 JAN. 2019</div>
                 </div>
                 <div class="zoneItem__time">02:46</div>
-            </div>
-            <div class="zoneItem">
-                <div>
-                    <div class="zoneItem__place">NEW YORK</div>
-                    <div class="zoneItem__date">27 JAN. 2019</div>
-                </div>
-                <div class="zoneItem__time">02:46</div>
-            </div>
+            </div> -->
         </main>
     </section>
     <script>
-        const zoneItem = document.querySelector('.zoneItem');
-        const date = new Date();
-        const areas = [
+        const zoneItemWrapper = document.querySelector('.worldClock__zone');
+        let date = new Date();
+        let areas = [
             {
                 name:'NEW YORK',
                 timeZone:'America/New_York',
@@ -54,21 +47,53 @@
             },
         ]
 
-        const dateOption = {
+        let dateOption = {
             year: 'numeric',
             month: 'short',
             day: '2-digit'
         };
 
-        function formatTime(timeZone) {
+        function formatDate(timeZone) {
             let formatDate = date.toLocaleDateString('en-GB', {timeZone, ...dateOption}).split(' ');
             formatDate.splice(1,0,' ');
             formatDate.splice(3,0,'.');
-            console.log('formatDate => ',formatDate);
+            // console.log('formatDate => ',formatDate);
             return formatDate.join('');
         }
-        formatTime(areas[4].timeZone);
 
+        function formatTime(timeZone) {
+            let formatTime = date.toLocaleTimeString('en-GB', {timeZone}).split(':');
+            formatTime.splice(2,1);
+            // console.log('formatTime => ',formatTime);
+            return formatTime.join(':');
+        }
+
+
+        function displayClockItem() {
+            let str = '';
+            areas.forEach( (item) => {
+                str += 
+                `
+                <div class="zoneItem">
+                    <div>
+                        <div class="zoneItem__place">${item.name}</div>
+                        <div class="zoneItem__date">${formatDate(item.timeZone)}</div>
+                    </div>
+                    <div class="zoneItem__time">${formatTime(item.timeZone)}</div>
+                </div>
+                `
+            })
+            // console.log('str',str);
+            // return str;
+            zoneItemWrapper.innerHTML = str
+        }
+        displayClockItem();
+        
+
+        // setInterval(() => {
+        //     date = new Date();
+        //     zoneItemWrapper.innerHTML = displayClockItem()
+        // }, 1000);
 
 
 
