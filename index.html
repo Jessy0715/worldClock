@@ -84,18 +84,15 @@
                 `
             })
             // console.log('str',str);
-            // return str;
-            zoneItemWrapper.innerHTML = str
+            return str;
         }
         displayClockItem();
         
 
-        // setInterval(() => {
-        //     date = new Date();
-        //     zoneItemWrapper.innerHTML = displayClockItem()
-        // }, 1000);
-
-
+        setInterval(() => {
+            date = new Date();
+            zoneItemWrapper.innerHTML = displayClockItem();
+        }, 1000);
 
     </script>
 
