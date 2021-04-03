@@ -84,12 +84,12 @@
                 `
             })
             // console.log('str',str);
-            return str;
+            zoneItemWrapper.innerHTML = str;
         }
         
         setInterval(() => {
             date = new Date();
-            zoneItemWrapper.innerHTML = displayClockItem();
+            displayClockItem();
         }, 1000);
 
     </script>
